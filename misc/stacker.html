@@ -1,0 +1,53 @@
+<body>
+    <canvas id="myCanvas" width="2000" height="2000"></canvas>
+</body>
+
+
+<script>
+    function drawCanvas() {
+        var canvas;
+        var context;
+        var imgArray = [
+            'https://cramped.space/pics/nft/sucker/3head-head2.png',
+            'https://cramped.space/pics/nft/sucker/2body-puffer-39.png',
+            'https://cramped.space/jacky/beanie-14.svg',
+        ];
+
+        var images = [];
+
+        canvas = document.getElementById('myCanvas');
+        context = canvas.getContext("2d");
+
+        var screenSize = window.innerWidth < window.innerHeight ? window.innerWidth :  window.innerHeight;
+
+        canvas.setAttribute("width", screenSize);
+        canvas.setAttribute("height", screenSize);
+
+
+        var loadCount = 0;
+
+        for (var i = 0; i < imgArray.length; i++) {
+            var img = new Image();
+            img.src = imgArray[i];
+            images.push(img);
+
+            img.onload = function() {
+                if(++loadCount == imgArray.length) {
+                    for(var i=0; i < imgArray.length; i++) {
+                        context.drawImage(images[i], 0, 0, screenSize, screenSize);
+                    }
+                }
+            };
+        }
+    };
+
+
+window.onload = function() {
+    drawCanvas();
+};
+
+window.onresize = function() {
+    drawCanvas();
+}
+
+</script>
